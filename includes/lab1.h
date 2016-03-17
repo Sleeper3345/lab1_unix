@@ -10,7 +10,7 @@ void kill_mode(int signal, pid_t k_pid);
 void std_mode();
 void child_mode();
 void pipe_mode();
-void posix_mode(int amount_of_signals);
+void posix_mode(int amount);
 
 void signal_std_handler(int signal, siginfo_t *siginfo, void *context);
 void signal_child_handler(int signal, siginfo_t *siginfo, void *context);
