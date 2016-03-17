@@ -4,9 +4,9 @@
 #include <unistd.h>
 #include <signal.h>
 
-int resieved_signals_count = 0;
+int number = 0;
 
-void posix_mode(int amount_of_signals) {
+void posix_mode(int amount) {
 	struct sigaction act;
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = &signal_posix_handler;
@@ -30,7 +30,7 @@ void posix_mode(int amount_of_signals) {
 		int buckets = RAND_MAX / range;
 		int limit = buckets * range;
 
-		for (i = 0; i < amount_of_signals; ++i) {
+		for (i = 0; i < amount; ++i) {
 			union sigval value;
 
 			int r_signal;
@@ -69,6 +69,6 @@ void posix_mode(int amount_of_signals) {
 void signal_posix_handler(int signal, siginfo_t *siginfo, void *context) {
 
 	fprintf(stderr, "PARENT: N=%i | MYPID=%i | PPID=%i | POSIXSIGNALNO=%i | VALUE=%i\n",
-		resieved_signals_count, siginfo->si_pid, getpid(), signal, siginfo->si_value.sival_int);
-	resieved_signals_count++;
+		number, siginfo->si_pid, getpid(), signal, siginfo->si_value.sival_int);
+	number++;
 }
